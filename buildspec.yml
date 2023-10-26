@@ -5,9 +5,9 @@ phases:
       - aws --version
       # 環境変数の設定
       - AWS_ACCOUNT_ID = 914281350488
-      - ECR_URI = ${914281350488}.dkr.ecr.${ap-northeast-1}.amazonaws.com
+      - ECR_URI = $914281350488.dkr.ecr.$ap-northeast-1.amazonaws.com
       - REPOSITORY_URI = ${ECR_URI}/tf_ECR_repository
-      - CONTAINER_NAME = flask
+      - CONTAINER_NAME = tf_ecr_repository
       # コミットハッシュの先頭7桁をタグに利用する
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
