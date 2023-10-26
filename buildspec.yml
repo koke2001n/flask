@@ -1,6 +1,11 @@
 version: 0.2
 
 env:
+
+  secrets-manager:
+    DOCKERHUB_USER: arn:aws:secretsmanager:ap-northeast-1:914281350488:secret:docker_hub:username
+    DOCKERHUB_PASS: arn:aws:secretsmanager:ap-northeast-1:914281350488:secret:docker_hub:password
+
   variables:
     IMAGE_REPOSITORY_NAME: tf_ecr_repository
     AWS_DEFAULT_REGION: ap-northeast-1
@@ -10,6 +15,8 @@ env:
 phases:
   pre_build:
     commands:
+      - echo Logging in to Docker Hub...
+      - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
       - aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
       - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPOSITORY_NAME}
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
