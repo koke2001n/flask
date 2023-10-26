@@ -1,0 +1,6 @@
+[
+    {
+      "name": "tf_ecr_repository",
+      "imageUri": "914281350488.dkr.ecr.ap-northeast-1.amazonaws.com/tf_ecr_repository"
+    }
+  ]
